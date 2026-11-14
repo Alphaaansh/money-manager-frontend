@@ -51,13 +51,12 @@ const Login = () => {
             }
         }
         catch (error){
-            if(error.response && error.response.data.message){
-                setError(error.response.data.message);
-            }
-            else{
-            console.log('Something went wrong',error);
-            setError(error.message);
-            }
+            const backendMsg =
+                error.response?.data?.message ||
+                error.response?.data?.Message ||
+                error.message;
+            console.log("Login error:", error.response || error);
+            setError(backendMsg);
         } finally {
             setIsLoading(false);
         }
